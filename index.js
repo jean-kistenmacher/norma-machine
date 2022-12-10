@@ -19,6 +19,19 @@ class Reg {
   }
 }
 
+function syncReadFile(filename) {
+  const contents = readFileSync(filename, 'utf-8')
+  const contentArray = contents.split(/\r?\n/)
+  return contentArray
+}
+
+function printRegistradores(obj) {
+  Object.keys(obj).forEach(key => {
+    console.log(key, obj[key])
+  })
+  console.log('\n')
+}
+
 let regMap = {}
 
 let inserir = prompt('Deseja inserir registrador? S|N ')
@@ -27,24 +40,20 @@ while (inserir != 'N') {
   let regValue = prompt('Insira Registrador/Valor? Reg/Val ')
   let registrador = regValue.split('/')
   regMap[registrador[0]] = new Reg(Number(registrador[1]))
-
   inserir = prompt('Deseja inserir registrador? S|N ')
 }
+
 console.log(`\n\nREGISTRADORES:\n`)
 printRegistradores(regMap)
 
-function syncReadFile(filename) {
-  const contents = readFileSync(filename, 'utf-8')
-  const contentArray = contents.split(/\r?\n/)
-  return contentArray
-}
-
 const programa = syncReadFile('./programa.txt')
+
 console.log(`PROGRAMA:\n`)
 console.log(programa)
 
 let programaRodando = true
 let linha = 0
+
 console.log('\nINICIA PROGRAMA\n')
 while (programaRodando) {
   instrucao = programa[linha].split(' ')
@@ -83,11 +92,4 @@ while (programaRodando) {
     console.log(`\n\nValores Finais:`)
     printRegistradores(regMap)
   }
-}
-
-function printRegistradores(obj) {
-  Object.keys(obj).forEach(key => {
-    console.log(key, obj[key])
-  })
-  console.log('\n')
 }
