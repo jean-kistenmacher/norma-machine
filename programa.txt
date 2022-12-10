@@ -1,0 +1,4 @@
+1: se zero_b entao va_para 9 senao va_para 2
+2: faça ad_a va_para 3
+3: faça ad_a va_para 4
+4: faça sub_b va_para 1

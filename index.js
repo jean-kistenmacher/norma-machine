@@ -1,4 +1,5 @@
 const prompt = require('prompt-sync')()
+const { readFileSync, promises: fsPromises } = require('fs')
 class Reg {
   constructor(value) {
     this.value = value
@@ -28,5 +29,12 @@ while (inserir != 'N') {
 
   inserir = prompt('Deseja inserir registrador? S|N ')
 }
-
 console.log(regMap)
+
+function syncReadFile(filename) {
+  const contents = readFileSync(filename, 'utf-8')
+  const contentArray = contents.split(/\r?\n/)
+  return contentArray
+}
+
+syncReadFile('./programa.txt')
