@@ -1,3 +1,7 @@
+// Trabalho desenvolvido por:
+// Jean Matheus Backes Kistenmacher
+// Luis Gustavo Machado Barcelos
+
 const prompt = require('prompt-sync')()
 const { readFileSync, promises: fsPromises } = require('fs')
 class Reg {
