@@ -1,13 +1,19 @@
 const prompt = require('prompt-sync')()
 const { readFileSync, promises: fsPromises } = require('fs')
 class Reg {
-  constructor(value) {
+  constructor(value, name) {
     this.value = value
+    this.name = name
   }
 
   get getValue() {
     return this.value
   }
+
+  get getName() {
+    return this.name
+  }
+
   add() {
     this.value++
   }
@@ -32,16 +38,29 @@ function printRegistradores(obj) {
   console.log('\n')
 }
 
+function validarRegistradores(input) {
+  let regex = /[A-Za-z0-9]+\/[0-9]+/i
+  return regex.test(input)
+}
+
 let regMap = {}
 
-let inserir = prompt('Deseja inserir registrador? S|N ')
+let numRegistradores = prompt('Informe o número de registradores: ')
+let indexRegistradores = 0
 
-while (inserir != 'N') {
+while (indexRegistradores < numRegistradores) {
   let regValue = prompt('Insira Registrador/Valor? Reg/Val ')
-  let registrador = regValue.split('/')
-  regMap[registrador[0]] = new Reg(Number(registrador[1]))
-  inserir = prompt('Deseja inserir registrador? S|N ')
+  const registradorValido = validarRegistradores(regValue)
+  if (registradorValido) {
+    let registrador = regValue.split('/')
+    regMap[registrador[0]] = new Reg(Number(registrador[1]), registrador[0])
+    indexRegistradores++
+  } else {
+    console.log('\nRegistrador Inválido. Tente novamente!\n')
+  }
 }
+
+console.log('\nINICIANDO PROGRAMA\n')
 
 console.log(`\n\nREGISTRADORES:\n`)
 printRegistradores(regMap)
@@ -54,7 +73,7 @@ console.log(programa)
 let programaRodando = true
 let linha = 0
 
-console.log('\nINICIA PROGRAMA\n')
+console.log('\nPROGRAMA COMPUTADO\n')
 while (programaRodando) {
   instrucao = programa[linha].split(' ')
   console.log(`${programa[linha]}`)
@@ -82,8 +101,19 @@ while (programaRodando) {
         regMap[registrador].add()
       } else if (operacao[0] === 'sub') {
         regMap[registrador].sub()
+      } else {
+        const macro = instrucao[2].split(':=')
+        registrador = regMap[macro[0]]
+        const macroValue = Number(macro[1])
+        if (macroValue === 0) {
+          setRegValueZero(registrador)
+        } else if (macroValue > 0) {
+          setRegValueZero(registrador)
+          setRegValue(registrador, macroValue)
+        }
       }
       linha = instrucao[4] - 1
+      console.log('\n')
       printRegistradores(regMap)
       break
   }
@@ -91,5 +121,19 @@ while (programaRodando) {
     programaRodando = false
     console.log(`\n\nValores Finais:`)
     printRegistradores(regMap)
+  }
+}
+
+function setRegValue(reg, value) {
+  while (reg.getValue < value) {
+    reg.add()
+    console.log(`${reg.getName} Reg { value: ${reg.getValue}}`)
+  }
+}
+
+function setRegValueZero(reg) {
+  while (reg.getValue > 0) {
+    reg.sub()
+    console.log(`${reg.getName} Reg { value: ${reg.getValue}}`)
   }
 }

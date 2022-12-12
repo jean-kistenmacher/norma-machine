@@ -1,0 +1,13 @@
+Para rodar o programa deve se instalar o compilador javascipt Node.js
+Segue o link para o site: https://nodejs.org/en/
+
+Após realizada instalação rodar o comando `npm install` para instalar os pacotes utilizados no projeto
+No arquivo `programa.txt` deverá ser informado o programa que irá ser executado na máquina norma
+Com o programa configurado e a instalação concluída basta rodar o comando `node index.js` para inicializar a máquina norma
+
+O programa possui a implementação de 2 MACROS:
+1 - A:=n
+	Macro para atribuir valor natural n a um registrador exemplo de utilização (faça a:=4 vá_para `x`)
+
+2 - A:=0
+	Macro para atribuir valor 0 a um registrador exemplo de utilização (faça a:=0 vá_para `x`)

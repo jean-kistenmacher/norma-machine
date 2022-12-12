@@ -1,4 +1,6 @@
-1: se zero_b então vá_para 9 senão vá_para 2
-2: faça ad_a vá_para 3
-3: faça ad_a vá_para 4
-4: faça sub_b vá_para 1
+1: faça c:=0 vá_para 2
+2: faça d:=3 vá_para 3
+3: se zero_b então vá_para 9 senão vá_para 4
+4: faça ad_a vá_para 5
+5: faça ad_a vá_para 6
+6: faça sub_b vá_para 3
