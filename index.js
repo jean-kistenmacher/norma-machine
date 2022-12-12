@@ -117,17 +117,21 @@ while (programaRodando) {
       let registrador = operacao[1]
       if (operacao[0] === 'ad') {
         regMap[registrador].add()
+        console.log(regMap[registrador])
       } else if (operacao[0] === 'sub') {
         regMap[registrador].sub()
+        console.log(regMap[registrador])
       } else {
         const macro = instrucao[2].split(':=')
         registrador = regMap[macro[0]]
         const macroValue = Number(macro[1])
         if (macroValue === 0) {
           setRegValueZero(registrador)
+          console.log(registrador)
         } else if (macroValue > 0) {
           setRegValueZero(registrador)
           setRegValue(registrador, macroValue)
+          console.log(registrador)
         }
       }
       linha = instrucao[4] - 1
