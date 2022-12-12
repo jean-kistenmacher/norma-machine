@@ -11,3 +11,20 @@ O programa possui a implementação de 2 MACROS:
 
 2 - A:=0
 	Macro para atribuir valor 0 a um registrador exemplo de utilização (faça a:=0 vá_para `x`)
+
+
+Exemplo de Entrada para o Programa que está incluso:
+
+4 Registradores
+
+Registradores/Valor
+a/0
+b/2
+c/3
+d/4
+
+Saída Esperada
+Reg { value: 4, name: 'a' }
+Reg { value: 0, name: 'b' }
+Reg { value: 0, name: 'c' }
+Reg { value: 3, name: 'd' }

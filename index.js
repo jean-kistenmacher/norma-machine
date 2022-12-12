@@ -1,9 +1,9 @@
 const prompt = require('prompt-sync')()
 const { readFileSync, promises: fsPromises } = require('fs')
 class Reg {
-  constructor(value, name) {
-    this.value = value
+  constructor(name, value) {
     this.name = name
+    this.value = value
   }
 
   get getValue() {
@@ -33,7 +33,7 @@ function syncReadFile(filename) {
 
 function printRegistradores(obj) {
   Object.keys(obj).forEach(key => {
-    console.log(key, obj[key])
+    console.log(obj[key])
   })
   console.log('\n')
 }
@@ -41,6 +41,20 @@ function printRegistradores(obj) {
 function validarRegistradores(input) {
   let regex = /[A-Za-z0-9]+\/[0-9]+/i
   return regex.test(input)
+}
+
+function setRegValue(reg, value) {
+  while (reg.getValue < value) {
+    reg.add()
+    console.log(`${reg.getName} Reg { value: ${reg.getValue}}`)
+  }
+}
+
+function setRegValueZero(reg) {
+  while (reg.getValue > 0) {
+    reg.sub()
+    console.log(`${reg.getName} Reg { value: ${reg.getValue}}`)
+  }
 }
 
 let regMap = {}
@@ -53,7 +67,7 @@ while (indexRegistradores < numRegistradores) {
   const registradorValido = validarRegistradores(regValue)
   if (registradorValido) {
     let registrador = regValue.split('/')
-    regMap[registrador[0]] = new Reg(Number(registrador[1]), registrador[0])
+    regMap[registrador[0]] = new Reg(registrador[0], Number(registrador[1]))
     indexRegistradores++
   } else {
     console.log('\nRegistrador Inválido. Tente novamente!\n')
@@ -121,19 +135,5 @@ while (programaRodando) {
     programaRodando = false
     console.log(`\n\nValores Finais:`)
     printRegistradores(regMap)
-  }
-}
-
-function setRegValue(reg, value) {
-  while (reg.getValue < value) {
-    reg.add()
-    console.log(`${reg.getName} Reg { value: ${reg.getValue}}`)
-  }
-}
-
-function setRegValueZero(reg) {
-  while (reg.getValue > 0) {
-    reg.sub()
-    console.log(`${reg.getName} Reg { value: ${reg.getValue}}`)
   }
 }
